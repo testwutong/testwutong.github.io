@@ -1,13 +1,14 @@
 <html>
   <body>
     <div id="app"></div>
+    <script type="text/javascript">
+      var dom = document.querySelector('#app');
+      var value = 1;
+      dom.innerText = value;
+      setInterval(function() {
+        dom.innerText = ++value;
+      }, 1000);
+    </script>
   </body>
-  <script>
-    var dom = document.querySelector('#app');
-    var value = 1;
-    dom.innerText = value;
-    setTimeout(function() {
-      dom.innerText = ++value;
-    });
-  </script>
+  
 </html>
