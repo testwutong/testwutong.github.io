@@ -4,6 +4,10 @@
   </body>
   <script>
     var dom = document.querySelector('#app');
-    dom.innerHtml = 1;
+    var value = 1;
+    dom.innerText = value;
+    setTimeout(function() {
+      dom.innerText = ++value;
+    });
   </script>
 </html>
