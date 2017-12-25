@@ -70,14 +70,15 @@
     <div class="area"></div>
     <script type="text/javascript">
       var dom = document.querySelector('#app');
-      var value = 2;
+      var value = 3;
       dom.innerText = value;
-      // setInterval(function() {
-      //   dom.innerText = ++value;
-      // }, 1000);
-      setTimeout(function() {
-        window.location.reload();
-      }, 4000)
+      setInterval(function() {
+        //dom.innerText = ++value;
+        location.reload();
+      }, 4000);
+      // setTimeout(function() {
+      //   window.location.reload();
+      // }, 4000)
     </script>
   </body>
   
