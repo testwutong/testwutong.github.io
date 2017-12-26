@@ -1,85 +1,93 @@
 <html>
-  <head>
-    <style type="text/css">
-    body{
+
+<head>
+  <style type="text/css">
+    body {
       font-size: 16px;
     }
-     .msg {
-       display: none;
-     }
-     .withRem {
-       font-size: 0.5rem;
-     }
-     .area {
-       height: 4rem;
-       background-color: gray;
-     }
-     @media screen and (min-width: 240px) {
-       .s240 {
-         display: block;
-       }
-       .s320 {
-         display: none;
-       }
-       .s480 {
-         display: none;
-       }
-       .withRem {
-         font-size: 2rem;
-       }
-     }
-    @media screen and (min-width: 320px) {
-      .s240 {
-        display: none;
+
+    .popup{
+      width: 200px;
+      height: 120px;
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      background-color: white;
+      margin-left: -100px;
+      margin-top: -60px;
+      z-index: 100;
+    }
+  </style>
+</head>
+
+<body>
+  <h1>test</h1>
+  <div id="app">test function CR2; arguments is "[[1,3], [2,4], [5,6]], 2"</div>
+  <div id="array-label">CR2 return array: <span id="array"></span></div>
+  <div id="result-label">result: <span id="result"></span></div>
+  <button id="confirm">calculate</button>
+  <script type="text/javascript">
+    var testArray = [[1,3], [2,4], [5,6]];
+    var num = 2;
+    var resultDom = document.querySelector('#result');
+    var arrayDom = document.querySelector('#array');
+    var confirmDom = document.querySelector('#confirm');
+    
+    var CR2 = function(arr, num) {
+      var result = [],
+        rec = function(arr, result, current, start, num) {
+          var m, l = arr.length - num,
+            i, j;
+          for (i = start; i <= l; i++) {
+            for (j = 0; j < arr[i].length; j++) {
+              m = current.slice(0);
+              m.push(arr[i][j]);
+              if (num == 1) {
+                result.push(m);
+              } else {
+                rec(arr, result, m, i + 1, num - 1)
+              }
+            };
+          }
+        }
+      rec(arr, result, [], 0,  num || arr.length);
+      return result;
+    };
+    
+    var calculate = function(arr) {
+      var sum = 0;
+      var tmp;
+      for(var i =0;i<arr.length;i++) {
+        tmp = 1;
+        for(var j=0;j<arr[i].length;j++) {
+          tmp = tmp * arr[i][j]
+        }
+        sum = sum + tmp;
       }
-      .s320 {
-        display: block;
-      }
-      .s480 {
-        display: none;
-      }
-      .withRem {
-        font-size: 3rem;
+      return sum;
+    }
+    
+    var showPopup = function(text) {
+      var curDom = document.querySelector('.popup');
+      if(!curDom) {
+        var curDom = document.createElement('div');
+        curDom.className = "popup";
+        curDom.innerText=text;
+        document.body.appendChild(curDom);
+      } else {
+        curDom.innerHtml='<span>' + text + '</span>';
+        curDom.style.display = 'block';
       }
     }
-    @media screen and (min-width: 480px) {
-      .s240 {
-        display: none;
-      }
-      .s320 {
-        display: none;
-      }
-      .s480 {
-        display: block;
-      }
-      .withRem {
-        font-size: 4rem;
-      }
-    }
-  
-  
-    </style>
-  </head>
-  <body>
-    <div id="app"></div>
-    <div class="msg s480">current rules is 320-480</div>
-    <div class="msg s320">current rules is 240-320</div>
-    <div class="msg s240">current rules is less than 240</div>
-    <div class="base">233</div>
-    <div class="withRem">233</div>
-    <div class="area"></div>
-    <script type="text/javascript">
-      var dom = document.querySelector('#app');
-      var value = 3;
-      dom.innerText = value;
-      setInterval(function() {
-        //dom.innerText = ++value;
-        location.href = location.href;
-      }, 4000);
-      // setTimeout(function() {
-      //   window.location.reload();
-      // }, 4000)
-    </script>
-  </body>
-  
+    
+    confirmDom.addEventListener('click', function(e){
+      var arr = CR2(testArray, num);
+      var result = calculate(arr);
+      resultDom.innerText = result;
+      arrayDom.innerText = JSON.stringify(arr);
+      showPopup('The result is ' + result);
+    });
+  </script>
+</body>
+
 </html>
