@@ -41,12 +41,13 @@
   <div id="app">test function CR2; arguments is "[[1,3], [2,4], [5,6]], 2"</div>
   <div id="array-label">CR2 return array: <span id="array"></span></div>
   <div id="result-label">result: <span id="result"></span></div>
-  <button id="confirm" onclick="showPopup()">calculate1</button>
+  <button id="confirm">calculate1</button>
   <div class="container">
-    <div class="mask" onclick="document.querySelector('.container').style.display = 'none'"></div>
+    <div class="mask"></div>
     <div class="popup"></div>
   </div>
   <script type="text/javascript">
+  alert(123132);
     var testArray = [[1,3], [2,4], [5,6]];
     var num = 2;
     var resultDom = document.querySelector('#result');
@@ -91,38 +92,38 @@
       var curDom = document.querySelector('.container');
       var popup = document.querySelector('.popup');
       var mask = document.querySelector('.mask');
-      // mask.addEventListener('click', function(e){
-      //   curDom.style.display = 'none';
-      // });
+      mask.addEventListener('click', function(e){
+        curDom.style.display = 'none';
+      });
       if(!curDom) {
-        // var curDom = document.createElement('div');
-        // var popup = document.createElement('div');
-        // var mask = document.createElement('div');
-        // 
-        // curDom.className = "container";
-        // popup.className = 'popup';
-        // mask.className = 'mask';
-        // popup.innerText=text;
-        // curDom.appendChild(mask);
-        // curDom.appendChild(popup);
-        // document.body.appendChild(curDom);
-        // 
-        // mask.addEventListener('click', function(e){
-        //   curDom.style.display = 'none';
-        // });
+        curDom = document.createElement('div');
+        popup = document.createElement('div');
+        mask = document.createElement('div');
+        
+        curDom.className = "container";
+        popup.className = 'popup';
+        mask.className = 'mask';
+        popup.innerText=text;
+        curDom.appendChild(mask);
+        curDom.appendChild(popup);
+        document.body.appendChild(curDom);
+        
+        mask.addEventListener('click', function(e){
+          curDom.style.display = 'none';
+        });
       } else {
         popup.innerText = text;
         curDom.style.display = 'block';
       }
     }
     
-    // confirmDom.addEventListener('click', function(e){
-    //   var arr = CR2(testArray, num);
-    //   var result = calculate(arr);
-    //   resultDom.innerText = result;
-    //   arrayDom.innerText = JSON.stringify(arr);
-    //   showPopup('The result is ' + result);
-    // });
+    confirmDom.addEventListener('click', function(e){
+      var arr = CR2(testArray, num);
+      var result = calculate(arr);
+      resultDom.innerText = result;
+      arrayDom.innerText = JSON.stringify(arr);
+      showPopup('The result is ' + result);
+    });
   </script>
 </body>
 
