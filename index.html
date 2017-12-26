@@ -5,7 +5,20 @@
     body {
       font-size: 16px;
     }
-
+    .container {
+      
+    }
+    .mask {
+      width: 100%;
+      height: 100%;
+      opacity: .4;
+      background-color: black;
+      position: absolute;
+      left: 0;
+      top: 0;
+      overflow: hidden;
+      z-index: 100;
+    }
     .popup{
       width: 200px;
       height: 120px;
@@ -15,7 +28,10 @@
       background-color: white;
       margin-left: -100px;
       margin-top: -60px;
-      z-index: 100;
+      z-index: 101;
+    }
+    #confirm {
+      background-color: gray; 
     }
   </style>
 </head>
@@ -68,12 +84,23 @@
     }
     
     var showPopup = function(text) {
-      var curDom = document.querySelector('.popup');
+      var curDom = document.querySelector('.container');
       if(!curDom) {
         var curDom = document.createElement('div');
-        curDom.className = "popup";
-        curDom.innerText=text;
+        var popup = document.createElement('div');
+        var mask = document.createElement('div');
+        
+        curDom.className = "container";
+        popup.className = 'popup';
+        mask.className = 'mask';
+        popup.innerText=text;
+        curDom.appendChild(mask);
+        curDom.appendChild(popup);
         document.body.appendChild(curDom);
+        
+        mask.addEventListener('click', function(e){
+          curDom.style.display = 'none';
+        });
       } else {
         curDom.innerHtml='<span>' + text + '</span>';
         curDom.style.display = 'block';
